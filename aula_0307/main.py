@@ -27,6 +27,14 @@ def deletar_livro(titulo:str):
             return livro
     raise HTTPException(404,"Não localizado")
 
+@app.put("/livros/{titulo}", response_model=Livro)
+def editar_livro(titulo: str, livro_atualizado: Livro):
+    for i, livro in enumerate(livros):
+        if livro.titulo == titulo:
+            livros[i] = livro_atualizado
+            return livro_atualizado
+    raise HTTPException(404,"Não Localizado")
+
 @app.post("/livros", response_model=Livro)
 def criar_livro(livro:Livro):
     livros.append(livro)
