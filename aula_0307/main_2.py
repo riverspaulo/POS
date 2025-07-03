@@ -73,20 +73,20 @@ def editar_livro():
         novo_ano = input(f"Ano [{livro_antigo['ano']}]: ") or livro_antigo['ano']
         nova_edicao = input(f"Edição [{livro_antigo['edicao']}]: ") or livro_antigo['edicao']
 
-        livro_novo = {
+        livro_editado = {
             "titulo": novo_titulo,
             "ano": int(novo_ano),
             "edicao": int(nova_edicao)
         }
 
-        requests.delete(f"{url}/livros/{titulo}")
-        r = requests.post(f"{url}/livros", json=livro_novo)
+        r = requests.put(f"{url}/livros/{titulo}", json=livro_editado)
         if r.status_code == 200:
             print("Livro editado com sucesso.")
         else:
             print("Erro ao editar livro.")
     else:
         print("Livro não encontrado.")
+
 
 if __name__ == "__main__":
     while True:
